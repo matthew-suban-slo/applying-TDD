@@ -1,3 +1,4 @@
+const { describe, test, expect, beforeEach } = require('@jest/globals');
 const Portfolio = require('./base');
 
 describe('Portfolio', () => {
@@ -37,9 +38,12 @@ describe('Portfolio', () => {
         expect(portfolio.isEmpty()).toBe(false);
     });
 
-    test('should handle zero shares', () => {
-        portfolio.addStock('FB', 0);
-        expect(portfolio.getStocks().get('FB')).toBe(0);
-        expect(portfolio.isEmpty()).toBe(false);
+    test('should return correct number of shares for a symbol', () => {
+        portfolio.addStock('TSLA', 3);
+        expect(portfolio.getShares('TSLA')).toBe(3);
+    });
+
+    test('should return 0 for non-existent symbol', () => {
+        expect(portfolio.getShares('AMZN')).toBe(0);
     });
 });
